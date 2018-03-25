@@ -12,7 +12,6 @@ namespace ProcessMonitoring
     class Plugin
     {
         private string name;
-        private Form plugin;
         public string Name
         {
             get
@@ -41,8 +40,15 @@ namespace ProcessMonitoring
             var ext = "dll";
             Assembly DLL = Assembly.LoadFrom(String.Format("{0}\\{1}.{2}", Utils.Constants.PATH_TO_DLL_LIBS, name, ext));
             Type classType = DLL.GetType(String.Format("{0}.{1}", name, "Plugin"));
-            dynamic classInst = Activator.CreateInstance(classType, this.Points, this.Points.GetType());
-            classInst.Perform();
+            try
+            {
+                dynamic classInst = Activator.CreateInstance(classType, this.Points);
+                classInst.Perform();
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
 
 
