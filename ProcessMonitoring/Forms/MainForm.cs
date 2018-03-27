@@ -1,4 +1,5 @@
-﻿using ProcessMonitoring.Models;
+﻿using ProcessMonitoring.Forms;
+using ProcessMonitoring.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,8 +14,13 @@ namespace ProcessMonitoring
     public partial class MainForm : Form
     {
         private List<Point> points;
+        private User user;
         public MainForm()
         {
+            if (this.user == null)
+            {
+                this.LoginUser();
+            }
             InitializeComponent();
             foreach (string name in Utils.OSUtils.GetPluginsNames(Utils.Constants.PATH_TO_DLL_LIBS))
             {
@@ -25,6 +31,22 @@ namespace ProcessMonitoring
                 };
                 plugin.Click += (sender, EventArgs) => { this.LoadPlugin(sender, EventArgs, name); };
                 this.pluginsMenu.DropDownItems.Add(plugin);
+            }
+            
+        }
+
+        private void LoginUser()
+        {
+            using (LoginForm loginForm = new LoginForm())
+            {
+                loginForm.ShowDialog();
+                if (loginForm.User == null)
+                {
+                    MessageBox.Show("You didn't login");
+                    this.Dispose();
+                    this.Close();
+                }
+                this.user = loginForm.User;
             }
         }
 
