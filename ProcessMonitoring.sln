@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TablePlugin", "..\TablePlug
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphPlugin", "..\GraphPlugin\GraphPlugin\GraphPlugin.csproj", "{BA1B3354-FC44-4112-98A1-CB9148E08C4E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinimumSquareMethod", "MinimumSquareMethod\MinimumSquareMethod.csproj", "{F89D21A0-6177-40C9-9E61-B944C3BDE3D0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{BA1B3354-FC44-4112-98A1-CB9148E08C4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA1B3354-FC44-4112-98A1-CB9148E08C4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA1B3354-FC44-4112-98A1-CB9148E08C4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F89D21A0-6177-40C9-9E61-B944C3BDE3D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F89D21A0-6177-40C9-9E61-B944C3BDE3D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F89D21A0-6177-40C9-9E61-B944C3BDE3D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F89D21A0-6177-40C9-9E61-B944C3BDE3D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

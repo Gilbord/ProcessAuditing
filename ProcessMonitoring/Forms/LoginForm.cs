@@ -31,26 +31,26 @@ namespace ProcessMonitoring.Forms
             try
             {
                 this.user = User.getUser(this.loginInput.Text, this.passwordInput.Text);
+                this.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            this.Close();
         }
 
         private void registerButton_Click(object sender, EventArgs e)
         {
-            this.user = new User(this.loginInput.Text, this.passwordInput.Text, true);
+            this.user = new User(this.loginInput.Text, this.passwordInput.Text, false, UserSettings.getDefaultSettings());
             try
             {
                 this.user.save();
+                this.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            this.Close();
         }
 
     }

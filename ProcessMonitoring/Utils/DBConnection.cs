@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using StackExchange.Redis;
 
-namespace ProcessMonitoring.Models
+namespace ProcessMonitoring.Utils
 {
     class DBConnection
     {
+
         static private int id = 100;
         static private ConnectionMultiplexer redis = null;
         static public IDatabase db
@@ -23,4 +24,5 @@ namespace ProcessMonitoring.Models
             }
         }
     }
+
 }
