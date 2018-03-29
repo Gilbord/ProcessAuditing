@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using WMPLib;
 
 namespace ProcessMonitoring
 {
@@ -19,6 +20,7 @@ namespace ProcessMonitoring
         private User user;
         private Settings settings;
         private string pathToSavedFile;
+        private WMPLib.WindowsMediaPlayer Player;
 
         public Settings Settings
         {
@@ -173,5 +175,43 @@ namespace ProcessMonitoring
             this.LoginUser();
             this.Visible = true;
         }
+
+        private void exitMenu_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void showVideoMenu_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "Video files|*.webm;*.mp4;*.wmv";
+            dialog.Multiselect = false;
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                PlayFile(dialog.FileName);
+            }
+        }
+
+        private void PlayFile(string path)
+        {
+            Player = new WMPLib.WindowsMediaPlayer();
+            Player.openPlayer(path);
+        }
+
+
+        private void Player_PlayStateChange(int NewState)
+        {
+            if ((WMPLib.WMPPlayState)NewState == WMPLib.WMPPlayState.wmppsStopped)
+            {
+                this.Close();
+            }
+        }
+
+        private void Player_MediaError(object pMediaObject)
+        {
+            MessageBox.Show("Cannot play media file.");
+            this.Close();
+        }
+
     }
 }
