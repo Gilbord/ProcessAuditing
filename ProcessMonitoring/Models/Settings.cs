@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace ProcessMonitoring.Models
     {
         private string nameX;
         private string nameY;
+        private string pathToPlugins;
         private Color plotColor;
 
         public string NameX
@@ -51,16 +53,44 @@ namespace ProcessMonitoring.Models
             }
         }
 
-        public Settings(string nameX, string nameY, Color plotColor)
+        public string PathToPlugins { get => pathToPlugins; set => pathToPlugins = value; }
+
+        public Settings(string nameX, string nameY, Color plotColor, string pathToPlugins)
         {
             this.nameX = nameX;
             this.nameY = nameY;
             this.plotColor = plotColor;
+            this.PathToPlugins = pathToPlugins;
         }
 
-        public static Settings defaultSettings()
+        public void save()
         {
-            return new Settings("x", "y", Color.Red);
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\OurSettings", true);
+            if (key == null)
+            {
+                key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\OurSettings", true);
+            }
+
+            //storing the values  
+            key.SetValue("nameX", this.NameX);
+            key.SetValue("nameY", this.NameY);
+            key.SetValue("color", this.PlotColor.Name);
+            key.SetValue("pathToPlugins", this.PathToPlugins);
+            key.Close();
+        }
+
+        public static Settings loadSettings()
+        {
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\OurSettings", true);
+            if(key == null)
+            {
+                key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\OurSettings", true);
+            }
+
+            return new Settings(key.GetValue("nameX", "x").ToString(),
+                key.GetValue("nameY", "y").ToString(),
+                Color.FromName(key.GetValue("color", Color.Red).ToString()),
+                key.GetValue("pathToPlugins", Utils.Constants.PATH_TO_DLL_LIBS).ToString());
         }
 
     }

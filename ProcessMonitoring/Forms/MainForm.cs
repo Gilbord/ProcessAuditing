@@ -26,13 +26,13 @@ namespace ProcessMonitoring
             {
                 if (this.settings == null)
                 {
-                    this.settings = Settings.defaultSettings();
+                    this.settings = Settings.loadSettings();
                 }
                 return this.settings;
             }
         }
         public MainForm()
-        { 
+        {
             InitializeComponent();
             if (this.user == null)
             {
@@ -74,7 +74,7 @@ namespace ProcessMonitoring
                     this.rigthsUpdate();
                 }
             }
-            
+
         }
 
         private void rigthsUpdate()
@@ -82,6 +82,7 @@ namespace ProcessMonitoring
             var isPointsEmpty = this.points != null;
             this.saveMenu.Enabled = isPointsEmpty && this.user.Rights.SaveFiles;
             this.saveAsMenu.Enabled = isPointsEmpty && this.user.Rights.SaveFiles;
+            this.pluginsMenu.Enabled = isPointsEmpty;
             this.tipMenu.Enabled = this.user.Rights.WatchTip;
             this.usersSetingsMenu.Enabled = this.user.IsAdmin;
         }
@@ -95,7 +96,7 @@ namespace ProcessMonitoring
         private void openMenu_Click(object sender, EventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "Text files | *.pmv";
+            dialog.Filter = "Text files|*.pmv";
             dialog.Multiselect = false;
             if (dialog.ShowDialog() == DialogResult.OK)
             {
@@ -106,12 +107,12 @@ namespace ProcessMonitoring
                 this.pluginsMenu.Enabled = true;
                 this.drawPlot();
             }
-            
+
         }
 
         private void drawPlot()
-        { 
-            if(this.points == null)
+        {
+            if (this.points == null)
             {
                 return;
             }

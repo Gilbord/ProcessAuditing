@@ -36,6 +36,9 @@
             this.plotColor = new System.Windows.Forms.PictureBox();
             this.textY = new System.Windows.Forms.TextBox();
             this.textX = new System.Windows.Forms.TextBox();
+            this.pathToPlugins = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.buttonPathToPlugins = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.plotColor)).BeginInit();
             this.SuspendLayout();
             // 
@@ -109,11 +112,40 @@
             this.textX.Size = new System.Drawing.Size(100, 20);
             this.textX.TabIndex = 7;
             // 
+            // pathToPlugins
+            // 
+            this.pathToPlugins.Location = new System.Drawing.Point(12, 147);
+            this.pathToPlugins.Name = "pathToPlugins";
+            this.pathToPlugins.Size = new System.Drawing.Size(221, 20);
+            this.pathToPlugins.TabIndex = 8;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 131);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(111, 13);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Путь к плагинам(.dll)";
+            // 
+            // buttonPathToPlugins
+            // 
+            this.buttonPathToPlugins.Location = new System.Drawing.Point(243, 145);
+            this.buttonPathToPlugins.Name = "buttonPathToPlugins";
+            this.buttonPathToPlugins.Size = new System.Drawing.Size(28, 23);
+            this.buttonPathToPlugins.TabIndex = 10;
+            this.buttonPathToPlugins.Text = "...";
+            this.buttonPathToPlugins.UseVisualStyleBackColor = true;
+            this.buttonPathToPlugins.Click += new System.EventHandler(this.buttonPathToPlugins_Click);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.buttonPathToPlugins);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.pathToPlugins);
             this.Controls.Add(this.textX);
             this.Controls.Add(this.textY);
             this.Controls.Add(this.plotColor);
@@ -140,5 +172,8 @@
         private System.Windows.Forms.PictureBox plotColor;
         private System.Windows.Forms.TextBox textY;
         private System.Windows.Forms.TextBox textX;
+        private System.Windows.Forms.TextBox pathToPlugins;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button buttonPathToPlugins;
     }
 }

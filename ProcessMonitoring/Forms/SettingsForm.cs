@@ -20,7 +20,7 @@ namespace ProcessMonitoring.Forms
             {
                 if (this.settings == null)
                 {
-                    this.settings = Settings.defaultSettings();
+                    this.settings = Settings.loadSettings();
                 }
                 return this.settings;
             }
@@ -28,16 +28,17 @@ namespace ProcessMonitoring.Forms
 
         public SettingsForm(Settings settings)
         {
-            this.settings = settings;
             InitializeComponent();
             this.textX.Text = this.Settings.NameX;
             this.textY.Text = this.Settings.NameY;
             this.plotColor.BackColor = this.Settings.PlotColor;
+            this.pathToPlugins.Text = this.Settings.PathToPlugins;
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            this.settings = new Settings(this.textX.Text, this.textY.Text, this.plotColor.BackColor);
+            this.settings = new Settings(this.textX.Text, this.textY.Text, this.plotColor.BackColor, this.pathToPlugins.Text);
+            this.settings.save();
             this.Close();
         }
 
@@ -60,6 +61,19 @@ namespace ProcessMonitoring.Forms
             if (MyDialog.ShowDialog() == DialogResult.OK)
             {
                 plotColor.BackColor = MyDialog.Color;
+            }
+        }
+
+        private void buttonPathToPlugins_Click(object sender, EventArgs e)
+        {
+            using (var fbd = new FolderBrowserDialog())
+            {
+                DialogResult result = fbd.ShowDialog();
+
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    this.pathToPlugins.Text = fbd.SelectedPath;
+                }
             }
         }
     }
